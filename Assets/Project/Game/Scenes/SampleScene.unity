@@ -344,7 +344,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ship: {fileID: 721068717}
   _poolsManager: {fileID: 355559850}
-  _asteroidPrefab: {fileID: 5408260734841049631, guid: 3058c05ed48dd484bad384c68d1e3ad8, type: 3}
+  _spawnableEnemies:
+  - {fileID: 11400000, guid: 08f37fa188f83c443b0ccc1a3c22c361, type: 2}
   _timeToSpawn: 2
 --- !u!4 &1130130297
 Transform:

@@ -4,34 +4,31 @@ using UnityEngine;
 
 namespace Game.Enemies
 {
-
     public class Asteroid : RecyclableObject, IEnemy
     {
-        [Header("References")]
-        [SerializeField] private float _movementSpeed;
-        [SerializeField] private int _maxHealthPoints;
-
         private int _currentHealthPoints;
-
-        [SerializeField] private Vector3 _movementDir;
+        private EnemyData _data;
         private Transform _transform;
+        private Vector3 _movementDir;
 
         private void Update()
         {
-            _transform.position += _movementDir * (_movementSpeed * Time.deltaTime);
+            _transform.position += _movementDir * (_data.MovementSpeed * Time.deltaTime);
         }
 
-        private void Initialize()
+        public void Initialize()
         {
-            _transform = transform;
-            _currentHealthPoints = _maxHealthPoints;
+            _currentHealthPoints = _data.MaxHealthPoints;
+
             gameObject.SetActive(true);
+
+            StartCoroutine(AutoDestroy());
         }
 
         public void TakeDamage(int damage)
         {
             int newHealthValue = _currentHealthPoints - damage;
-            _currentHealthPoints = Mathf.Clamp(newHealthValue, 0, _maxHealthPoints);
+            _currentHealthPoints = Mathf.Clamp(newHealthValue, 0, _data.MaxHealthPoints);
 
             if (_currentHealthPoints <= 0)
                 Death();
@@ -39,14 +36,13 @@ namespace Game.Enemies
 
         public void Death()
         {
-            Destroy(gameObject);
+            Recycle();
         }
 
         public override void OnRevived()
         {
-            Initialize();
-
-            StartCoroutine(AutoDestroy());
+            _transform = transform;
+            _transform.localScale = Vector3.one;
         }
 
         public override void OnRecycle()
@@ -67,7 +63,7 @@ namespace Game.Enemies
                 yield return new WaitForEndOfFrame();
             }
 
-            Recycle();
+            Death();
         }
 
         public void SetTarget(Transform target)
@@ -75,6 +71,11 @@ namespace Game.Enemies
             _movementDir = (target.position - transform.position).normalized;
 
             Debug.DrawRay(_transform.position, target.position - transform.position, Color.red, 5);
+        }
+
+        public void SetData(EnemyData data)
+        {
+            _data = data;  
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ObjectPooling;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.Enemies
@@ -8,13 +9,15 @@ namespace Game.Enemies
         [Header("References")]
         [SerializeField] private Transform _ship;
         [SerializeField] private ObjectPoolsManager _poolsManager;
-        [SerializeField] private Asteroid _asteroidPrefab;
-
-        private ObjectPool _pool;
+        [SerializeField] private List<SpawnableEnemy> _spawnableEnemies = new List<SpawnableEnemy>();
 
         private void Start()
         {
-            _pool = _poolsManager.GetPool(_asteroidPrefab);
+            foreach (SpawnableEnemy enemy in _spawnableEnemies)
+            {
+                _poolsManager.GetPool(enemy.recyclableEnemyPrefab);
+            }
+            
         }
 
         [SerializeField] private float _timeToSpawn = 2;
@@ -34,14 +37,34 @@ namespace Game.Enemies
 
         void Spawn()
         {
-            GameObject enemyGameObject = _pool.GetGameObject();
+            int random = Random.Range(0, _spawnableEnemies.Count);
+
+            SpawnableEnemy spawnableEnemy = _spawnableEnemies[random];
+            RecyclableObject objectToSpawn = spawnableEnemy.recyclableEnemyPrefab;
+
+            GameObject enemyGameObject = _poolsManager.GetPool(objectToSpawn).GetGameObject();
 
             float x = Random.Range(-10, 10);
             float y = Random.Range(-10, 10);
             enemyGameObject.transform.position = new Vector3(x, y);
             
             IEnemy enemy = enemyGameObject.GetComponent<IEnemy>();
+
+            EnemyBaseData baseData = spawnableEnemy.enemyBaseData;
+
+            int sizeMultiplier = Random.Range(baseData.minSizeMultiplier, baseData.maxSizeMultiplier);
+            enemyGameObject.transform.localScale *= sizeMultiplier;
+
+            int healthPoints = baseData.baseHealthPoints * sizeMultiplier;
+            float moveSpeed = baseData.baseMovementSpeed * sizeMultiplier;
+            int score = baseData.baseScore * sizeMultiplier;
+
+            EnemyData enemyData = new EnemyData(healthPoints, moveSpeed, score);
+            enemy.SetData(enemyData);
+
             enemy.SetTarget(_ship);
+
+            enemy.Initialize();
         }
     }
 }
