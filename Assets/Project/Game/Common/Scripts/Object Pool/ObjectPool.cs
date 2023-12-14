@@ -25,10 +25,6 @@ namespace ObjectPooling
             _objectsInUse = new List<RecyclableObject>();
         }
 
-        /// <summary>
-        ///  Return a instancied gameobject or if there aren't instacied gameobjects, then instantiate a new one
-        /// </summary>
-        /// <returns></returns>
         public GameObject GetGameObject()
         {
             RecyclableObject recyclablObject;
@@ -78,10 +74,6 @@ namespace ObjectPooling
             return recyclableObject;
         }
 
-        /// <summary>
-        /// Return the first RecyclableObject in the InUse List
-        /// </summary>
-        /// <returns></returns>
         private RecyclableObject ReturnObjectInUse()
         {
             RecyclableObject recyclableObject = _objectsInUse[0];
@@ -91,10 +83,6 @@ namespace ObjectPooling
             return recyclableObject;
         }
 
-        /// <summary>
-        /// Recycle a object that is in use
-        /// </summary>
-        /// <param name="recyclableObject"></param>
         public void RecycleObject(RecyclableObject recyclableObject)
         {
             recyclableObject.OnRecycle();
@@ -104,9 +92,6 @@ namespace ObjectPooling
             _objectsPool.Enqueue(recyclableObject);
         }
 
-        /// <summary>
-        /// Recycle all objects
-        /// </summary>
         public void RecycleAllObjecstInUse()
         {
             for (var i = _objectsInUse.Count - 1; i >= 0; i--)
@@ -115,10 +100,6 @@ namespace ObjectPooling
             }
         }
 
-        /// <summary>
-        /// Get the total instancied objects
-        /// </summary>
-        /// <returns></returns>
         public int GetPoolSize()
         {
             return _objectsInPoolCount;

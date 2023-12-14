@@ -18,7 +18,7 @@ namespace Game.Ship
         public void Move()
         {
             Vector2 forceDirection = _shipTransform.up * _movementSpeed;
-            _shipRigidbody.AddForce(forceDirection);
+            _shipRigidbody.AddForce(forceDirection, ForceMode2D.Force);
         }
 
         public void Rotate(Vector2 direction)

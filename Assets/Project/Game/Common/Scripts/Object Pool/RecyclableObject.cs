@@ -15,9 +15,6 @@ namespace ObjectPooling
 
         public abstract void OnRecycle();
 
-        /// <summary>
-        /// Returns the object to the pool
-        /// </summary>
         public void Recycle()
         {
             _objectPool.RecycleObject(this);
