@@ -1,3 +1,4 @@
+using Game.Audio;
 using Game.Enemies;
 using ObjectPooling;
 using ObserverPattern;
@@ -17,8 +18,11 @@ namespace Game.Ship
 
         [SerializeField] private float _movementSpeed;
         [SerializeField] private InputActionAsset _inputActionAsset;
+        [SerializeField] private GameObject _shipVisual;
         [SerializeField] private Transform _cannon;
+        [SerializeField] private SoundData _deathSound;
 
+        private BoxCollider2D _collider;
         private Rigidbody2D _rigidBody;
         private InputAction _moveAction;
         private InputAction _rotateAction;
@@ -26,11 +30,13 @@ namespace Game.Ship
         private IShipMovement _shipMovement;
 
         private List<IObserver> _observers = new List<IObserver>();
+        
+
         // Start is called before the first frame update
         void Start()
         {
             _rigidBody = GetComponent<Rigidbody2D>();
-
+            _collider = GetComponent<BoxCollider2D>();
             _shipMovement = new ShipMovement(transform, _movementSpeed, _rigidBody);
 
             _moveAction = _inputActionAsset.FindAction("Movement");
@@ -93,8 +99,10 @@ namespace Game.Ship
 
         public void TakeDamage(int damage)
         {
+            ServiceLocator.Instance.GetService<IAudioService>().GetAudioManager().PlaySound(_deathSound, gameObject);
             NotifyObserver("ShipDeath");
-            gameObject.SetActive(false);
+            _shipVisual.SetActive(false);
+            _collider.enabled = false;
         }
 
         public void Subscribe(IObserver observer)

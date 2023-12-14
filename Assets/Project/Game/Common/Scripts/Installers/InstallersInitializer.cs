@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game
 {
-    public class InstallersInitialer : MonoBehaviour
+    public class InstallersInitializer : MonoBehaviour
     {
         [SerializeField] private List<Installer> _installers = new List<Installer>();
 
