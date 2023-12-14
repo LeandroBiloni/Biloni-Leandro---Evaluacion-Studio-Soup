@@ -1,4 +1,5 @@
-﻿using Game.Enemies;
+﻿using Game.Audio;
+using Game.Enemies;
 using Game.Ship;
 using ObserverPattern;
 using ServiceLocating;
@@ -9,19 +10,23 @@ namespace ScoreSystem
 {
     public class ScoreManager : IScoreService, IObserver, IDisposable
     {
-        private readonly ScorePresenter _presenter;
+        private readonly IScorePresenter _presenter;
         private readonly CurrentHighscoreSave _highscoreSave;
         private readonly PlayerShip _playerShip;
+        private readonly SoundData _highschoreSound;
 
         private int _currentScore = 0;
         private int _highScore = 0;
 
         private Dictionary<string, Action<object>> _actionsDic = new Dictionary<string, Action<object>>();
 
-        public ScoreManager(ScorePresenter presenter, CurrentHighscoreSave highscoreSave, PlayerShip playerShip)
+        private bool _highscorePassed = false;
+
+        public ScoreManager(ScorePresenter presenter, CurrentHighscoreSave highscoreSave, PlayerShip playerShip, SoundData highschoreSound)
         {
             _presenter = presenter;
             _highscoreSave = highscoreSave;
+            _highschoreSound = highschoreSound;
 
             _playerShip = playerShip;
             _playerShip.Subscribe(this);
@@ -35,7 +40,7 @@ namespace ScoreSystem
             ServiceLocator.Instance.RegisterService<IScoreService>(this);
 
             _actionsDic.Add("AsteroidDeath", AddScore);
-            _actionsDic.Add("ShipDeath", OnShipDeath);            
+            _actionsDic.Add("ShipDeath", OnShipDeath);
         }
 
         public ScoreManager GetScoreManager()
@@ -63,6 +68,12 @@ namespace ScoreSystem
         {
             if (_currentScore > _highScore)
             {
+                if (!_highscorePassed)
+                {
+                    ServiceLocator.Instance.GetService<IAudioService>().GetAudioManager().PlaySound(_highschoreSound, _presenter.GetGameObject());
+                    _highscorePassed = true;
+                }
+
                 _highScore = _currentScore;
 
                 _highscoreSave.highscore = _highScore;

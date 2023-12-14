@@ -18,5 +18,10 @@ namespace ScoreSystem
         {
             _highScore.SetText(highScore);
         }
+
+        public GameObject GetGameObject()
+        {
+            return gameObject;
+        }
     }
 }

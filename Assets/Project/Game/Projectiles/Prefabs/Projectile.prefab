@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movementSpeed: 5
   _damage: 1
+  _shootSound: {fileID: 11400000, guid: 4a9a3776885ff8d43a8d0b3a87330789, type: 2}
 --- !u!58 &597821909802960194
 CircleCollider2D:
   m_ObjectHideFlags: 0

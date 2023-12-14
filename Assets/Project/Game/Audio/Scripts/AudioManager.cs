@@ -21,15 +21,15 @@ namespace Game.Audio
             if (ServiceLocator.Instance)
                 ServiceLocator.Instance.RegisterService<IAudioService>(this);
 
-            //_audioMixer.GetFloat("MusicVolume", out float musicDB);
-            //Debug.Log("Music db: " + musicDB);
-            //Debug.Log("Music float: " + DBToFloat(musicDB));
-            //_musicSlider.value = (int)DBToFloat(musicDB) * _musicSlider.maxValue;
-            //_musicSlider.onValueChanged.AddListener(UpdateMusicVolume);
+            _audioMixer.GetFloat("MusicVolume", out float musicDB);
+            Debug.Log("Music db: " + musicDB);
+            Debug.Log("Music float: " + DBToFloat(musicDB));
+            _musicSlider.value = (int)DBToFloat(musicDB) * _musicSlider.maxValue;
+            _musicSlider.onValueChanged.AddListener(UpdateMusicVolume);
 
-            //_audioMixer.GetFloat("SFXVolume", out float sfxDB);
-            //_sfxSlider.value = (int)DBToFloat(sfxDB) * _sfxSlider.maxValue;
-            //_sfxSlider.onValueChanged.AddListener(UpdateSFXVolume);
+            _audioMixer.GetFloat("SFXVolume", out float sfxDB);
+            _sfxSlider.value = (int)DBToFloat(sfxDB) * _sfxSlider.maxValue;
+            _sfxSlider.onValueChanged.AddListener(UpdateSFXVolume);
         }
 
         public AudioManager GetAudioManager()

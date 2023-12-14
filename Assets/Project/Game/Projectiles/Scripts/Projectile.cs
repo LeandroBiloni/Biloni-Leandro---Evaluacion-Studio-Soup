@@ -1,4 +1,6 @@
-﻿using ObjectPooling;
+﻿using Game.Audio;
+using ObjectPooling;
+using ServiceLocating;
 using UnityEngine;
 
 namespace Game.Ship
@@ -8,6 +10,7 @@ namespace Game.Ship
         [Header("References")]
         [SerializeField] private float _movementSpeed;
         [SerializeField] private int _damage;
+        [SerializeField] private SoundData _shootSound;
 
         private Vector3 _movementDir;
 
@@ -31,6 +34,8 @@ namespace Game.Ship
             _canMove = false;
             _movementDir = Vector3.zero;
             gameObject.SetActive(true);
+
+            ServiceLocator.Instance.GetService<IAudioService>().GetAudioManager().PlaySound(_shootSound, gameObject);
         }
 
         public override void OnRecycle()

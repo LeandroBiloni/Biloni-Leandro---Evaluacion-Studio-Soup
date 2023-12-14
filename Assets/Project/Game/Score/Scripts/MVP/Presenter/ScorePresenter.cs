@@ -1,4 +1,7 @@
-﻿namespace ScoreSystem
+﻿using System;
+using UnityEngine;
+
+namespace ScoreSystem
 {
     public class ScorePresenter : IScorePresenter
     {
@@ -17,6 +20,11 @@
         public void UpdateHighScore(int highScore)
         {
             _view.UpdateHighScore(highScore.ToString());
+        }
+
+        public GameObject GetGameObject()
+        {
+            return _view.GetGameObject();
         }
     }
 }

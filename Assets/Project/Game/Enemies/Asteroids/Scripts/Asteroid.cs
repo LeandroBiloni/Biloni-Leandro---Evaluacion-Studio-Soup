@@ -1,6 +1,8 @@
-﻿using Game.Ship;
+﻿using Game.Audio;
+using Game.Ship;
 using ObjectPooling;
 using ObserverPattern;
+using ServiceLocating;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +11,10 @@ namespace Game.Enemies
 {
     public class Asteroid : RecyclableObject, IEnemy
     {
+        [SerializeField] private GameObject _visual;
+        [SerializeField] private CircleCollider2D _circleCollider;
+        [SerializeField] private SoundData _deathSound;
+
         private int _currentHealthPoints;
         private EnemyData _data;
         private Transform _transform;
@@ -39,7 +45,18 @@ namespace Game.Enemies
 
         public void Death()
         {
+            StartCoroutine(DeathDelay());
+        }
+
+        private IEnumerator DeathDelay()
+        {
+            ServiceLocator.Instance.GetService<IAudioService>().GetAudioManager().PlaySound(_deathSound, gameObject);
+            _circleCollider.enabled = false;
+            _visual.SetActive(false);
             NotifyObserver("AsteroidDeath");
+
+            yield return new WaitForSeconds(_deathSound.clip.length);
+
             Recycle();
         }
 

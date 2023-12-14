@@ -20,7 +20,7 @@ namespace Game.Ship
         [SerializeField] private InputActionAsset _inputActionAsset;
         [SerializeField] private GameObject _shipVisual;
         [SerializeField] private Transform _cannon;
-        [SerializeField] private SoundData _deathSound;
+        [SerializeField] private SoundData _deathSound;        
 
         private BoxCollider2D _collider;
         private Rigidbody2D _rigidBody;
@@ -50,7 +50,6 @@ namespace Game.Ship
         {
             CheckMoveInput();
             CheckRotationInput();
-
         }
 
         private void CheckMoveInput()

@@ -1,4 +1,5 @@
 using Game;
+using Game.Audio;
 using Game.Ship;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ namespace ScoreSystem
         [SerializeField] private ScoreView _scoreView;
         [SerializeField] private CurrentHighscoreSave _highscoreSave;
         [SerializeField] private PlayerShip _playerShip;
+        [SerializeField] private SoundData _highscoreSound;
 
         private ScoreManager _scoreManager;
 
@@ -19,7 +21,7 @@ namespace ScoreSystem
 
             ScorePresenter presenter = new ScorePresenter(view);
 
-            _scoreManager = new ScoreManager(presenter, _highscoreSave, _playerShip);
+            _scoreManager = new ScoreManager(presenter, _highscoreSave, _playerShip, _highscoreSound);
         }
 
         private void OnDestroy()
