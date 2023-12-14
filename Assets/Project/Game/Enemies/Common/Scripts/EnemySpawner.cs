@@ -8,6 +8,8 @@ namespace Game.Enemies
     {
         [Header("References")]
         [SerializeField] private Transform _ship;
+        [SerializeField] private Vector2 _minDistanceFromCenterToSpawn;
+        [SerializeField] private Vector2 _maxDistanceFromCenterToSpawn;
         [SerializeField] private ObjectPoolsManager _poolsManager;
         [SerializeField] private List<SpawnableEnemy> _spawnableEnemies = new List<SpawnableEnemy>();
 
@@ -44,8 +46,8 @@ namespace Game.Enemies
 
             GameObject enemyGameObject = _poolsManager.GetPool(objectToSpawn).GetGameObject();
 
-            float x = Random.Range(-10, 10);
-            float y = Random.Range(-10, 10);
+            float x = Random.Range(_minDistanceFromCenterToSpawn.x, _maxDistanceFromCenterToSpawn.x);
+            float y = Random.Range(_minDistanceFromCenterToSpawn.y, _maxDistanceFromCenterToSpawn.y);
             enemyGameObject.transform.position = new Vector3(x, y);
             
             IEnemy enemy = enemyGameObject.GetComponent<IEnemy>();

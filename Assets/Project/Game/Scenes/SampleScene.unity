@@ -559,7 +559,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1130130296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -573,6 +573,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ship: {fileID: 721068717}
+  _minDistanceFromCenterToSpawn: {x: 5, y: 5}
+  _maxDistanceFromCenterToSpawn: {x: 25, y: 15}
   _poolsManager: {fileID: 355559850}
   _spawnableEnemies:
   - {fileID: 11400000, guid: 08f37fa188f83c443b0ccc1a3c22c361, type: 2}
