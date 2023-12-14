@@ -19,7 +19,7 @@ namespace ScoreSystem
         {
             IScoreView view = _scoreView;
 
-            ScorePresenter presenter = new ScorePresenter(view);
+            IScorePresenter presenter = new ScorePresenter(view);
 
             _scoreManager = new ScoreManager(presenter, _highscoreSave, _playerShip, _highscoreSound);
         }

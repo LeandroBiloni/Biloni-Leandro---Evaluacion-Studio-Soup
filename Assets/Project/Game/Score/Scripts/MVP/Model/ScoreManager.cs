@@ -22,7 +22,7 @@ namespace ScoreSystem
 
         private bool _highscorePassed = false;
 
-        public ScoreManager(ScorePresenter presenter, CurrentHighscoreSave highscoreSave, PlayerShip playerShip, SoundData highschoreSound)
+        public ScoreManager(IScorePresenter presenter, CurrentHighscoreSave highscoreSave, PlayerShip playerShip, SoundData highschoreSound)
         {
             _presenter = presenter;
             _highscoreSave = highscoreSave;
