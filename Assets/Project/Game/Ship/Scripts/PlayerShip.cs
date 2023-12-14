@@ -1,5 +1,6 @@
 using Game.Enemies;
 using ObjectPooling;
+using ServiceLocating;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,7 +10,6 @@ namespace Game.Ship
     public class PlayerShip : MonoBehaviour, IShoot, IDamageable
     {
         [Header("References")]
-        [SerializeField] private ObjectPoolsManager _poolsManager;
         [SerializeField] private RecyclableObject _projectile;
 
         [SerializeField] private float _movementSpeed;
@@ -78,7 +78,8 @@ namespace Game.Ship
 
         public void Shoot()
         {
-            GameObject projectileGameObject = _poolsManager.GetPool(_projectile).GetGameObject();
+            ObjectPool pool = ServiceLocator.Instance.GetService<IObjectPoolService>().GetPool(_projectile);
+            GameObject projectileGameObject = pool.GetGameObject();
 
             projectileGameObject.transform.position = _cannon.position;
 

@@ -543,6 +543,50 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8176215345051101989, guid: fe61e55a28c6ef14eb445193e7e137f4, type: 3}
   m_PrefabInstance: {fileID: 721068716}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &815237103
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 815237105}
+  - component: {fileID: 815237104}
+  m_Layer: 0
+  m_Name: ServiceLocator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &815237104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 815237103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cfc89fcabe5ef44e958a0ffd908a27c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &815237105
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 815237103}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1130130295
 GameObject:
   m_ObjectHideFlags: 0
@@ -575,10 +619,9 @@ MonoBehaviour:
   _ship: {fileID: 721068717}
   _minDistanceFromCenterToSpawn: {x: 5, y: 5}
   _maxDistanceFromCenterToSpawn: {x: 25, y: 15}
-  _poolsManager: {fileID: 355559850}
   _spawnableEnemies:
   - {fileID: 11400000, guid: 08f37fa188f83c443b0ccc1a3c22c361, type: 2}
-  _timeToSpawn: 1
+  _timeToSpawn: 2
 --- !u!4 &1130130297
 Transform:
   m_ObjectHideFlags: 0

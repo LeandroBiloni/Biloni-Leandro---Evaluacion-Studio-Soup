@@ -1,4 +1,5 @@
 ﻿using ObjectPooling;
+using ServiceLocating;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,17 +11,8 @@ namespace Game.Enemies
         [SerializeField] private Transform _ship;
         [SerializeField] private Vector2 _minDistanceFromCenterToSpawn;
         [SerializeField] private Vector2 _maxDistanceFromCenterToSpawn;
-        [SerializeField] private ObjectPoolsManager _poolsManager;
-        [SerializeField] private List<SpawnableEnemy> _spawnableEnemies = new List<SpawnableEnemy>();
 
-        private void Start()
-        {
-            foreach (SpawnableEnemy enemy in _spawnableEnemies)
-            {
-                _poolsManager.GetPool(enemy.recyclableEnemyPrefab);
-            }
-            
-        }
+        [SerializeField] private List<SpawnableEnemy> _spawnableEnemies = new List<SpawnableEnemy>();
 
         [SerializeField] private float _timeToSpawn = 2;
 
@@ -44,10 +36,25 @@ namespace Game.Enemies
             SpawnableEnemy spawnableEnemy = _spawnableEnemies[random];
             RecyclableObject objectToSpawn = spawnableEnemy.recyclableEnemyPrefab;
 
-            GameObject enemyGameObject = _poolsManager.GetPool(objectToSpawn).GetGameObject();
+            ObjectPool pool = ServiceLocator.Instance.GetService<IObjectPoolService>().GetPool(objectToSpawn);
 
-            float x = Random.Range(_minDistanceFromCenterToSpawn.x, _maxDistanceFromCenterToSpawn.x);
-            float y = Random.Range(_minDistanceFromCenterToSpawn.y, _maxDistanceFromCenterToSpawn.y);
+            GameObject enemyGameObject = pool.GetGameObject();
+
+            int xSpawnCoordMultiplier = Random.Range(-1, 2);
+            int ySpawnCoordMultiplier = Random.Range(-1, 2);
+
+            if (xSpawnCoordMultiplier > 0)
+                xSpawnCoordMultiplier = 1;
+            else
+                xSpawnCoordMultiplier = -1;
+
+            if (ySpawnCoordMultiplier > 0)
+                ySpawnCoordMultiplier = 1;
+            else
+                ySpawnCoordMultiplier = -1;
+
+            float x = Random.Range(_minDistanceFromCenterToSpawn.x * xSpawnCoordMultiplier, _maxDistanceFromCenterToSpawn.x * xSpawnCoordMultiplier);
+            float y = Random.Range(_minDistanceFromCenterToSpawn.y * ySpawnCoordMultiplier, _maxDistanceFromCenterToSpawn.y * ySpawnCoordMultiplier);
             enemyGameObject.transform.position = new Vector3(x, y);
             
             IEnemy enemy = enemyGameObject.GetComponent<IEnemy>();
