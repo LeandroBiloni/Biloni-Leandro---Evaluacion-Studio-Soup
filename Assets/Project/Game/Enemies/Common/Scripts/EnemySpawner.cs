@@ -1,5 +1,7 @@
 ﻿using ObjectPooling;
+using ScoreSystem;
 using ServiceLocating;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,8 +20,24 @@ namespace Game.Enemies
 
         private float _currentTime = 0;
 
+        private ScoreManager _scoreManager;
+
+        private bool _startSpawner = false;
+        private IEnumerator Start()
+        {
+            yield return new WaitForEndOfFrame();
+
+            _scoreManager = ServiceLocator.Instance.GetService<IScoreService>().GetScoreManager();
+
+            _startSpawner = true;
+        }
+
+
         private void Update()
         {
+            if (!_startSpawner)
+                return;
+
             if (_currentTime < _timeToSpawn)
                 _currentTime += Time.deltaTime;
             else
@@ -58,6 +76,8 @@ namespace Game.Enemies
             enemyGameObject.transform.position = new Vector3(x, y);
             
             IEnemy enemy = enemyGameObject.GetComponent<IEnemy>();
+
+            enemy.Subscribe(_scoreManager);
 
             EnemyBaseData baseData = spawnableEnemy.enemyBaseData;
 

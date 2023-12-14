@@ -1,6 +1,8 @@
 ﻿using Game.Ship;
 using ObjectPooling;
+using ObserverPattern;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.Enemies
@@ -11,6 +13,8 @@ namespace Game.Enemies
         private EnemyData _data;
         private Transform _transform;
         private Vector3 _movementDir;
+
+        private List<IObserver> _observers = new List<IObserver>();
 
         private void Update()
         {
@@ -35,6 +39,7 @@ namespace Game.Enemies
 
         public void Death()
         {
+            NotifyObserver("AsteroidDeath");
             Recycle();
         }
 
@@ -46,8 +51,6 @@ namespace Game.Enemies
 
         public override void OnRecycle()
         {
-            Debug.Log("Recycle asteroid!");
-
             gameObject.SetActive(false);
         }
 
@@ -63,12 +66,37 @@ namespace Game.Enemies
             _data = data;  
         }
 
+        public int GetScore()
+        {
+            return _data.Score;
+        }
+
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (!collision.gameObject.TryGetComponent<PlayerShip>(out PlayerShip ship))
                 return;
 
             ship.TakeDamage(0);
+        }
+
+        public void Subscribe(IObserver observer)
+        {
+            if (_observers.Contains(observer) == false)
+                _observers.Add(observer);
+        }
+
+        public void Unsuscribe(IObserver observer)
+        {
+            if (_observers.Contains(observer))
+                _observers.Remove(observer);
+        }
+
+        public void NotifyObserver(string action)
+        {
+            for (int i = _observers.Count - 1; i >= 0; i--)
+            {
+                _observers[i].Notify<Asteroid>(action, this);
+            }
         }
     }
 }
