@@ -1,9 +1,7 @@
 using Game.Audio;
-using Game.Enemies;
 using ObjectPooling;
 using ObserverPattern;
 using ServiceLocating;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -30,7 +28,8 @@ namespace Game.Ship
         private IShipMovement _shipMovement;
 
         private List<IObserver> _observers = new List<IObserver>();
-        
+
+        private bool _isDead;
 
         // Start is called before the first frame update
         void Start()
@@ -48,6 +47,9 @@ namespace Game.Ship
 
         private void Update()
         {
+            if (_isDead)
+                return;
+
             CheckMoveInput();
             CheckRotationInput();
         }
@@ -82,6 +84,9 @@ namespace Game.Ship
 
         private void OnShootInputReceived(InputAction.CallbackContext context)
         {
+            if (_isDead)
+                return;
+
             Shoot();
         }
 
@@ -102,6 +107,7 @@ namespace Game.Ship
             NotifyObserver("ShipDeath");
             _shipVisual.SetActive(false);
             _collider.enabled = false;
+            _isDead = true;
         }
 
         public void Subscribe(IObserver observer)
