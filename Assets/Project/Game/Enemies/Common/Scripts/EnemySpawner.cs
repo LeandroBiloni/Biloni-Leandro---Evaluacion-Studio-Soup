@@ -1,13 +1,12 @@
 ﻿using ObjectPooling;
 using ScoreSystem;
 using ServiceLocating;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.Enemies
 {
-    public class EnemySpawner : MonoBehaviour
+    public class EnemySpawner : Installer
     {
         [Header("References")]
         [SerializeField] private Transform _ship;
@@ -23,15 +22,13 @@ namespace Game.Enemies
         private ScoreManager _scoreManager;
 
         private bool _startSpawner = false;
-        private IEnumerator Start()
-        {
-            yield return new WaitForEndOfFrame();
 
+        public override void Install()
+        {
             _scoreManager = ServiceLocator.Instance.GetService<IScoreService>().GetScoreManager();
 
             _startSpawner = true;
         }
-
 
         private void Update()
         {

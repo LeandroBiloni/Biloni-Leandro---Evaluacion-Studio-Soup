@@ -1,17 +1,12 @@
-﻿using ServiceLocating;
+﻿using Game;
+using ServiceLocating;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace ObjectPooling
 {
-    public class ObjectPoolsManager : MonoBehaviour, IObjectPoolService
+    public class ObjectPoolsManager : Installer, IObjectPoolService
     {
         private Dictionary<RecyclableObject, ObjectPool> _objectPools = new Dictionary<RecyclableObject, ObjectPool> ();
-
-        private void Start()
-        {
-            ServiceLocator.Instance.RegisterService<IObjectPoolService>(this);
-        }
 
         public ObjectPool GetPool(RecyclableObject recyclableObject)
         {
@@ -24,6 +19,11 @@ namespace ObjectPooling
             }
 
             return pool;
+        }
+
+        public override void Install()
+        {
+            ServiceLocator.Instance.RegisterService<IObjectPoolService>(this);
         }
     }
 }

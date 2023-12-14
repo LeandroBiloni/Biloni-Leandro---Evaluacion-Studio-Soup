@@ -1,10 +1,10 @@
+using Game;
 using Game.Ship;
-using System.Collections;
 using UnityEngine;
 
 namespace ScoreSystem
 {
-    public class ScoreSystemInstaller : MonoBehaviour
+    public class ScoreSystemInstaller : Installer
     {
         [Header("References")]
         [SerializeField] private ScoreView _scoreView;
@@ -12,15 +12,8 @@ namespace ScoreSystem
         [SerializeField] private PlayerShip _playerShip;
 
         private ScoreManager _scoreManager;
-        // Start is called before the first frame update
-        private IEnumerator Start()
-        {
-            yield return new WaitForEndOfFrame();
 
-            Install();
-        }
-
-        public void Install()
+        public override void Install()
         {
             IScoreView view = _scoreView;
 

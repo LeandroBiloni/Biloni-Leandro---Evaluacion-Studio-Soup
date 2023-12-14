@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Game;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace ServiceLocating
 {
-    public class ServiceLocator : MonoBehaviour
+    public class ServiceLocator : Installer
     {
         private static ServiceLocator _serviceLocator;
 
@@ -12,7 +13,7 @@ namespace ServiceLocating
 
         private Dictionary<Type, object> _services = new Dictionary<Type, object>();
 
-        private void Awake()
+        public override void Install()
         {
             if (_serviceLocator == null)
             {
@@ -34,6 +35,8 @@ namespace ServiceLocating
         {
             return (T)_services[typeof(T)];
         }
+
+        
     }
 }
 
