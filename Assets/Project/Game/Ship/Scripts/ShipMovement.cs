@@ -25,8 +25,6 @@ namespace Game.Ship
         {
             Vector3 fixedDir = new Vector3(0, 0, direction.x);
 
-            Debug.Log("Fixed dir: " + fixedDir);
-
             _shipTransform.Rotate(fixedDir);
         }
     }

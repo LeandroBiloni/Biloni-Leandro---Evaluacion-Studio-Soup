@@ -249,8 +249,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b05ed7c944c125d4e8df76362e11f82a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _poolsManager: {fileID: 0}
+  _projectile: {fileID: 2582014896151519053, guid: fe6f395688840474aa628ca5f554078e, type: 3}
   _movementSpeed: 1
   _inputActionAsset: {fileID: -944628639613478452, guid: 843e49d90fad8e24881817dcbf858e55, type: 3}
+  _cannon: {fileID: 8176215344015762650}
 --- !u!114 &8176215345051101995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,7 +308,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &8176215345051101993
 BoxCollider2D:
   m_ObjectHideFlags: 0

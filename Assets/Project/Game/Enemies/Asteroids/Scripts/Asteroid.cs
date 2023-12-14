@@ -1,4 +1,5 @@
-﻿using ObjectPooling;
+﻿using Game.Ship;
+using ObjectPooling;
 using System.Collections;
 using UnityEngine;
 
@@ -21,8 +22,6 @@ namespace Game.Enemies
             _currentHealthPoints = _data.MaxHealthPoints;
 
             gameObject.SetActive(true);
-
-            StartCoroutine(AutoDestroy());
         }
 
         public void TakeDamage(int damage)
@@ -52,20 +51,6 @@ namespace Game.Enemies
             gameObject.SetActive(false);
         }
 
-        private IEnumerator AutoDestroy()
-        {
-            float duration = 3;
-
-            while (duration > 0)
-            {
-                duration -= Time.deltaTime;
-
-                yield return new WaitForEndOfFrame();
-            }
-
-            Death();
-        }
-
         public void SetTarget(Transform target)
         {
             _movementDir = (target.position - transform.position).normalized;
@@ -76,6 +61,14 @@ namespace Game.Enemies
         public void SetData(EnemyData data)
         {
             _data = data;  
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (!collision.gameObject.TryGetComponent<PlayerShip>(out PlayerShip ship))
+                return;
+
+            ship.TakeDamage(0);
         }
     }
 }
