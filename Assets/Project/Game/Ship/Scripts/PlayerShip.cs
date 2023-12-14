@@ -1,13 +1,16 @@
 using Game.Enemies;
 using ObjectPooling;
+using ObserverPattern;
 using ServiceLocating;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Game.Ship
 {
 
-    public class PlayerShip : MonoBehaviour, IShoot, IDamageable
+    public class PlayerShip : MonoBehaviour, IShoot, IDamageable, IObservable
     {
         [Header("References")]
         [SerializeField] private RecyclableObject _projectile;
@@ -22,6 +25,7 @@ namespace Game.Ship
         private InputAction _shootAction;
         private IShipMovement _shipMovement;
 
+        private List<IObserver> _observers = new List<IObserver>();
         // Start is called before the first frame update
         void Start()
         {
@@ -89,8 +93,28 @@ namespace Game.Ship
 
         public void TakeDamage(int damage)
         {
-            Debug.Log("Ship destroyed!");
+            NotifyObserver("ShipDeath");
             gameObject.SetActive(false);
+        }
+
+        public void Subscribe(IObserver observer)
+        {
+            if (_observers.Contains(observer) == false)
+                _observers.Add(observer);
+        }
+
+        public void Unsuscribe(IObserver observer)
+        {
+            if (_observers.Contains(observer))
+                _observers.Remove(observer);
+        }
+
+        public void NotifyObserver(string action)
+        {
+            for (int i = _observers.Count - 1; i >= 0; i--)
+            {
+                _observers[i].Notify<PlayerShip>(action, this);
+            }
         }
     }
 }
