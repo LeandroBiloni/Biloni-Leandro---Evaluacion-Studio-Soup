@@ -362,6 +362,7 @@ GameObject:
   - component: {fileID: 568386247}
   - component: {fileID: 568386249}
   - component: {fileID: 568386248}
+  - component: {fileID: 568386250}
   m_Layer: 0
   m_Name: Bottom Limit
   m_TagString: Untagged
@@ -462,6 +463,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &568386250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 568386246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 509147ee3a0ca644b96780726ca41767, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _oppositeLimit: {fileID: 1237965141}
+  _offsetForTeleportation: 2
 --- !u!1 &633463852
 GameObject:
   m_ObjectHideFlags: 0
@@ -473,6 +488,7 @@ GameObject:
   - component: {fileID: 633463853}
   - component: {fileID: 633463855}
   - component: {fileID: 633463854}
+  - component: {fileID: 633463856}
   m_Layer: 0
   m_Name: Right Limit
   m_TagString: Untagged
@@ -573,6 +589,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &633463856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 633463852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 509147ee3a0ca644b96780726ca41767, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _oppositeLimit: {fileID: 1419672443}
+  _offsetForTeleportation: 2
 --- !u!1 &635152934
 GameObject:
   m_ObjectHideFlags: 0
@@ -1376,6 +1406,7 @@ GameObject:
   - component: {fileID: 1237965141}
   - component: {fileID: 1237965143}
   - component: {fileID: 1237965142}
+  - component: {fileID: 1237965144}
   m_Layer: 0
   m_Name: Top Limit
   m_TagString: Untagged
@@ -1476,6 +1507,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1237965144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237965140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 509147ee3a0ca644b96780726ca41767, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _oppositeLimit: {fileID: 568386247}
+  _offsetForTeleportation: 2
 --- !u!1 &1263010564
 GameObject:
   m_ObjectHideFlags: 0
@@ -1581,6 +1626,7 @@ GameObject:
   - component: {fileID: 1419672443}
   - component: {fileID: 1419672445}
   - component: {fileID: 1419672444}
+  - component: {fileID: 1419672446}
   m_Layer: 0
   m_Name: Left Limit
   m_TagString: Untagged
@@ -1681,6 +1727,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1419672446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1419672442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 509147ee3a0ca644b96780726ca41767, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _oppositeLimit: {fileID: 633463853}
+  _offsetForTeleportation: 2
 --- !u!1 &1424847666
 GameObject:
   m_ObjectHideFlags: 0

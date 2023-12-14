@@ -43,13 +43,13 @@ namespace Game.Ship
             gameObject.SetActive(false);
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            if (collision.TryGetComponent<IDamageable>(out IDamageable damageable))
-                damageable.TakeDamage(_damage);
+        private void OnCollisionEnter2D(Collision2D collision)
+        {            
+            if (!collision.transform.TryGetComponent<IDamageable>(out IDamageable damageable))
+                return;
 
+            damageable.TakeDamage(_damage);
             Death();
-            
         }
 
         private void Death()

@@ -214,7 +214,7 @@ GameObject:
   - component: {fileID: 8176215345051101995}
   - component: {fileID: 8176215345051101992}
   - component: {fileID: 8176215345051101993}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ship
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -255,7 +255,6 @@ MonoBehaviour:
   _shipVisual: {fileID: 8176215343483707885}
   _cannon: {fileID: 8176215344015762650}
   _deathSound: {fileID: 11400000, guid: 9334083054c800f4397814c003ed705c, type: 2}
-  _shootSound: {fileID: 11400000, guid: 4a9a3776885ff8d43a8d0b3a87330789, type: 2}
 --- !u!114 &8176215345051101995
 MonoBehaviour:
   m_ObjectHideFlags: 0
