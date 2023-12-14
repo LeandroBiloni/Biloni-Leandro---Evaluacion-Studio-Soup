@@ -1,18 +1,25 @@
+using Game.Enemies;
+using ObjectPooling;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Game.Ship
 {
-    public class Ship : MonoBehaviour
+
+    public class PlayerShip : MonoBehaviour, IShoot, IDamageable
     {
         [Header("References")]
+        [SerializeField] private ObjectPoolsManager _poolsManager;
+        [SerializeField] private RecyclableObject _projectile;
+
         [SerializeField] private float _movementSpeed;
         [SerializeField] private InputActionAsset _inputActionAsset;
+        [SerializeField] private Transform _cannon;
 
         private Rigidbody2D _rigidBody;
         private InputAction _moveAction;
         private InputAction _rotateAction;
-
+        private InputAction _shootAction;
         private IShipMovement _shipMovement;
 
         // Start is called before the first frame update
@@ -24,12 +31,16 @@ namespace Game.Ship
 
             _moveAction = _inputActionAsset.FindAction("Movement");
             _rotateAction = _inputActionAsset.FindAction("Rotation");
+            _shootAction = _inputActionAsset.FindAction("Shoot");
+
+            _shootAction.performed += OnShootInputReceived;
         }
 
         private void Update()
         {
             CheckMoveInput();
             CheckRotationInput();
+
         }
 
         private void CheckMoveInput()
@@ -58,6 +69,27 @@ namespace Game.Ship
         private void Rotate(Vector2 dir)
         {
             _shipMovement.Rotate(dir);
+        }
+
+        private void OnShootInputReceived(InputAction.CallbackContext context)
+        {
+            Shoot();
+        }
+
+        public void Shoot()
+        {
+            GameObject projectileGameObject = _poolsManager.GetPool(_projectile).GetGameObject();
+
+            projectileGameObject.transform.position = _cannon.position;
+
+            Projectile projectile = projectileGameObject.GetComponent<Projectile>();
+            projectile.Move(transform.up);
+        }
+
+        public void TakeDamage(int damage)
+        {
+            Debug.Log("Ship destroyed!");
+            gameObject.SetActive(false);
         }
     }
 }
