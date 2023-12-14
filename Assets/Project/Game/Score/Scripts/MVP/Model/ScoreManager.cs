@@ -50,9 +50,16 @@ namespace ScoreSystem
             _currentScore += asteroid.GetScore();
 
             _presenter.UpdateLevelScore(_currentScore);
+
+            UpdateHighscore();
         }
 
         private void OnShipDeath(object obj)
+        {
+            UpdateHighscore();
+        }
+
+        private void UpdateHighscore()
         {
             if (_currentScore > _highScore)
             {
